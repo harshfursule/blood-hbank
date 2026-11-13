@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  # ── MongoDB ──────────────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7.0
+    container_name: blood-bank-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: blood-bank
+
+  # ── Redis ─────────────────────────────────────────────────────────────────────
+  redis:
+    image: redis:7.2-alpine
+    container_name: blood-bank-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+  # ── Backend API ───────────────────────────────────────────────────────────────
+  server:
+    build: ./server
+    container_name: blood-bank-server
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+      - redis
+    environment:
+      - NODE_ENV=development
+      - MONGO_URI=mongodb://mongo:27017/blood-bank
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - PORT=5000
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    command: npm run dev
+
+volumes:
+  mongo_data:
+  redis_data:
