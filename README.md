@@ -63,16 +63,4 @@ cd client && npm run dev
 Frontend: http://localhost:5173  
 Backend:  http://localhost:5000/api/health
 
-## Project Phases
 
-| Phase | Status |
-|---|---|
-| Phase 1 — Setup & Foundation | ✅ Done |
-| Phase 2 — Auth & Roles | 🔜 Next |
-| Phase 3 — Donor Module | ⏳ Pending |
-| Phase 4 — Blood Inventory | ⏳ Pending |
-| Phase 5 — Requests & Dispatch | ⏳ Pending |
-| Phase 6 — Notifications | ⏳ Pending |
-| Phase 7 — Dashboard & Reports | ⏳ Pending |
-| Phase 8 — Testing | ⏳ Pending |
-| Phase 9 — Deployment | ⏳ Pending |
